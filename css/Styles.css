@@ -1,0 +1,309 @@
+/* Root theme variables: tweak colors, radii and weights from one place.
+   Using CSS variables makes it easy to adjust the whole look later. */
+:root{
+    --bg-1:#071028;
+    --bg-2:#0b1b34;
+    --card:#0f1724;
+    --glass: rgba(255,255,255,0.03);
+    --accent:#22eaff;
+    --accent-2:#7c5cff;
+    --muted:#98a0b3;
+    --glass-border: rgba(255,255,255,0.06);
+    --radius:12px;
+    --fw-regular: 400;
+    --fw-bold: 700;
+}
+
+/* Basic reset & global page background
+   - layered radial + linear gradients create a distant glow + depth.
+   - font stack falls back gracefully across platforms. */
+*{box-sizing:border-box}
+html,body{
+  height:100%;
+  margin:0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(34,234,255,0.06), transparent),
+              linear-gradient(180deg,var(--bg-1), var(--bg-2) 60%);
+  color:#e6eef8;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+  letter-spacing:0.1px;
+  padding:0 18px;
+}
+
+/* Container helper to center content and cap width for readability */
+.container{
+  max-width:1100px;
+  margin:0 auto;
+  padding:48px 12px;
+}
+
+/* Top nav (glass pill)
+   - backdrop-filter for blur + subtle saturation to achieve frosted/glass effect.
+   - sticky header remains visible; top:12px gives a small offset from viewport edge. */
+header.site-header{
+  position:sticky;
+  top:12px;
+  z-index:40;
+  backdrop-filter: blur(6px) saturate(120%);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid var(--glass-border);
+  border-radius:999px;
+  padding:10px 14px;
+  margin-bottom:28px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  box-shadow: 0 8px 30px rgba(2,6,23,0.6), 0 0 18px rgba(34,234,255,0.03);
+}
+.logo{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  font-weight:700;
+  color:var(--accent);
+  text-decoration:none;
+}
+/* Logo mark uses a diagonal gradient and soft glow to read as a small 'device' or badge */
+.logo .mark{
+  width:36px;
+  height:36px;
+  background: linear-gradient(135deg,var(--accent),var(--accent-2));
+  border-radius:8px;
+  box-shadow: 0 6px 30px rgba(124,92,255,0.12), 0 0 12px rgba(34,234,255,0.08);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#02111c;
+  font-weight:800;
+  font-size:14px;
+}
+
+/* Nav links: muted by default, highlighted on hover with slight lift for affordance */
+nav.primary-nav a{
+  color:var(--muted);
+  text-decoration:none;
+  padding:8px 12px;
+  border-radius:8px;
+  transition: all .18s ease;
+  font-weight:600;
+}
+nav.primary-nav a:hover{
+  color:#eaffff;
+  background:linear-gradient(90deg, rgba(122,80,255,0.08), rgba(34,234,255,0.04));
+  transform:translateY(-2px);
+  box-shadow: 0 6px 18px rgba(2,6,23,0.45);
+}
+
+/* Hero area: glass card with two columns
+   - grid-template-columns uses a flexible left column and fixed-width right column (380px)
+   - on small screens the media query collapses it to one column */
+.hero{
+  padding:48px 20px;
+  border-radius: var(--radius);
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent);
+  border:1px solid var(--glass-border);
+  display:grid;
+  grid-template-columns:1fr 380px; /* left content + right visual/cta column */
+  gap:28px;
+  align-items:center;
+  margin-bottom:36px;
+}
+/* clamp() makes the H1 scale between a min and max value based on viewport width */
+.hero h1{
+  margin:0 0 10px 0;
+  font-size: clamp(26px, 4vw, 40px);
+  line-height:1.02;
+  color: #dff8ff;
+  text-shadow: 0 6px 30px rgba(34,234,255,0.06);
+}
+.hero p{ color:var(--muted); margin:0 0 18px 0; font-size:15px; max-width:62ch; }
+/* CTA row allows wrapping so buttons stack gracefully on narrow screens */
+.hero .cta-row{ display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+
+/* Buttons:
+   - primary uses the neon gradient and extra shadow to stand out
+   - ghost provides a low-contrast alternative
+   - small translate on hover gives tactile feedback */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  padding:10px 16px;
+  border-radius:10px;
+  font-weight:600;
+  border:1px solid transparent;
+  cursor:pointer;
+  text-decoration:none;
+  color:#02111c;
+}
+.btn--primary{
+  background: linear-gradient(90deg,var(--accent), var(--accent-2));
+  box-shadow: 0 8px 30px rgba(34,234,255,0.08), 0 2px 6px rgba(124,92,255,0.06);
+}
+.btn--ghost{
+  background:transparent;
+  color:var(--muted);
+  border:1px solid rgba(255,255,255,0.04);
+}
+.btn:hover{ transform:translateY(-3px) }
+
+/* Grid & Cards
+   - auto-fit + minmax creates responsive cards that fill available space and wrap naturally
+   - subtle hover transform + deeper shadow gives a floating/card feeling */
+.grid{
+  display:grid;
+  grid-template-columns: repeat(auto-fit,minmax(240px,1fr));
+  gap:18px;
+}
+.card{
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.00));
+  border:1px solid var(--glass-border);
+  border-radius:12px;
+  padding:18px;
+  box-shadow: 0 6px 22px rgba(2,6,23,0.45);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+/* Stronger shadow + translation on hover makes the card feel liftable */
+.card:hover{
+  transform:translateY(-8px);
+  box-shadow: 0 18px 50px rgba(2,6,23,0.6), 0 0 40px rgba(34,234,255,0.06);
+}
+
+/* Feature list
+   - small icon box with gradient to match branding; keeps layout aligned with copy */
+.features .feature{
+  display:flex;
+  gap:14px;
+  align-items:flex-start;
+}
+.feature .ico{
+  min-width:48px;
+  height:48px;
+  border-radius:10px;
+  background: linear-gradient(135deg,var(--accent), rgba(124,92,255,0.7));
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#02111c;
+  font-weight:700;
+  box-shadow: 0 8px 30px rgba(124,92,255,0.09);
+}
+.feature h4{ margin:0 0 4px 0; color:#eafeff; }
+.feature p{ margin:0; color:var(--muted); font-size:14px; }
+
+/* Pricing section uses the same responsive grid idea so plans stack on narrow screens */
+.pricing-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(220px,1fr));
+  gap:16px;
+  align-items:start;
+}
+.price{
+  padding:20px;
+  text-align:center;
+}
+.price .price-value{
+  font-size:28px;
+  font-weight:800;
+  color:#e9fbff;
+  margin:8px 0 16px 0;
+}
+.badge{
+  display:inline-block;
+  background:linear-gradient(90deg, rgba(34,234,255,0.12), rgba(124,92,255,0.06));
+  color:var(--accent);
+  padding:6px 10px;
+  border-radius:999px;
+  font-weight:700;
+  font-size:12px;
+}
+
+/* Contact form inputs
+   - subtle glass-like backgrounds and a clear focus state using border-color + shadow
+   - keep outline:none for consistent custom focus style */
+.contact-form{
+  display:grid;
+  gap:12px;
+}
+.input, textarea{
+  width:100%;
+  padding:12px 14px;
+  border-radius:10px;
+  background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.04);
+  color: #dff8ff;
+  font-size:14px;
+  outline:none;
+}
+/* Focus state emphasizes the field using the accent color; shadow adds depth */
+.input:focus, textarea:focus{
+  border-color: rgba(34,234,255,0.4);
+  box-shadow: 0 6px 20px rgba(34,234,255,0.06);
+}
+
+/* Small supportive UI bits */
+.kicker{
+  display:inline-block;
+  color:var(--muted);
+  font-size:13px;
+  margin-bottom:8px;
+}
+.small{
+  font-size:13px;
+  color:var(--muted);
+}
+
+/* Footer matches card/header glass style for visual consistency */
+footer.site-footer{
+  margin-top:42px;
+  padding:28px;
+  border-radius:12px;
+  border:1px solid var(--glass-border);
+  background: linear-gradient(180deg, rgba(255,255,255,0.01), transparent);
+  color:var(--muted);
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:center;
+}
+
+/* Animated glow line
+   - uses a blurred gradient and a simple animation that shifts background-position
+   - keeps motion subtle and looped to add futuristic atmosphere without distraction */
+.glow-line{
+  height:2px;
+  width:100%;
+  background: linear-gradient(90deg, transparent, rgba(34,234,255,0.14), transparent);
+  filter: blur(6px);
+  margin:12px 0;
+  border-radius:4px;
+  animation: slide 6s linear infinite;
+  opacity:0.9;
+}
+@keyframes slide{
+  /* animate the background-position to make the bright portion move across */
+  0%{ background-position:0% 50% }
+  100%{ background-position:100% 50% }
+}
+
+/* Responsive adjustments:
+   - breakpoint chosen to collapse multi-column hero into a stacked layout
+   - header switches to column to remain usable on smaller screens */
+@media (max-width:880px){
+  .hero{ grid-template-columns:1fr; padding:28px; }
+  header.site-header{ flex-direction:column; gap:10px; align-items:stretch; padding:12px }
+  .container{ padding:24px 8px }
+}
+
+/* Utility helpers for quick alignment and accent text */
+.center{ text-align:center }
+.muted{ color:var(--muted) }
+/* glow-text: heavier accent color + layered text-shadow for neon effect */
+.glow-text{
+  color:var(--accent);
+  text-shadow: 0 4px 30px rgba(34,234,255,0.18), 0 0 6px rgba(124,92,255,0.06);
+  font-weight:800;
+}
