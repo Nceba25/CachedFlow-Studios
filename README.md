@@ -69,7 +69,58 @@ Pricing tiers (R100 Basic / R1,499 Starter / R2,999 Team) were benchmarked again
 
 All testimonials, team bios, and the company itself are fictional/illustrative for the purposes of this assignment, as stated in the Part 1 proposal. Research above reflects the sources and conventions consulted while building the site; direct visual/content copying from any competitor was avoided — all HTML, copy, and structure were authored independently for this submission.
 
-This README was drafted with AI assistance, based on the author's Part 1 proposal and completed site files.
+## Changelog: Part 3
+
+### Version 3.0 (2026)
+
+#### File structure and bug fixes
+- Renamed `cachedflow.index.html` to `index.html` so the home page loads automatically when hosted.
+- Matched the stylesheet name `styles.css` (capitalisation) across all pages, because case-sensitive hosts treat `Styles.css` and `styles.css` as different files.
+- Updated the navigation links on every page to point to `index.html`.
+- Checked and corrected image paths and file names.
+
+#### JavaScript interactivity (`js/main.js`)
+- Added an accordion on the Features page that expands and collapses each feature, with keyboard support and `aria-expanded` attributes.
+- Added a monthly/annual billing toggle on the Pricing page that updates the displayed prices.
+- Added a responsive hamburger menu that toggles the navigation on mobile screens.
+- Added fade-in-on-scroll animations using `IntersectionObserver`, and hover transitions on buttons and cards in `styles.css`.
+- Added an interactive Leaflet map of Bryanston, Sandton on the Contact page, with a marker and popup.
+
+#### Image gallery and lightbox
+- Built an image gallery on the Features page. The image data (source, alt text, caption) is stored in a JavaScript array and the thumbnails are generated through DOM manipulation.
+- Clicking a thumbnail opens a lightbox with a larger image, caption, image counter, and previous/next arrows.
+- The lightbox closes with the X button, the Esc key, or by clicking outside the image, and the arrow keys change images.
+- Images use `loading="lazy"` for faster page loading.
+
+#### Dynamic content
+- Added a live search, category filter and sort function that updates the displayed content without reloading the page.
+
+#### Forms and validation
+- Created `enquiry.html` for service, plan and partnership enquiries, with a plan selector, enquiry type, preferred date, and a character counter on the message box. Once the form is validated, the user sees a response related to their selected plan.
+- Updated `contact.html` with extra fields (phone number and message type). Once validated, the details are compiled into an email for the recipient and a confirmation is shown to the customer.
+- Added HTML5 validation attributes (`required`, `type`, `pattern`, `minlength`, `maxlength`, `min`).
+- Added JavaScript validation for email format, South African phone numbers, dates (no past dates) and message length, with inline error messages and error styling.
+- Added AJAX submission with `fetch()`, including a loading state, a success message, and error handling, without reloading the page.
+- Added `enquiry.html` to the navigation and footer on all pages.
+
+#### Search engine optimisation
+- Wrote a unique `<title>` and meta description for each page.
+- Reviewed heading structure so that each page has one `<h1>` followed by logical `<h2>`/`<h3>` headings.
+- Added descriptive file names and alt text for all images.
+- Added Open Graph tags for social media sharing and canonical tags.
+- Created `robots.txt` and `sitemap.xml` listing all pages.
+- Added internal links between related pages.
+
+#### Performance and security
+- Deferred script loading (`defer`) and lazy-loaded images to improve page speed.
+- Added `rel="noopener noreferrer"` to external links.
+- Removed inline event handlers and avoided inserting raw user input with `innerHTML`.
+
+#### Documentation and repository
+- Added explanatory comments to the HTML, CSS and JavaScript files.
+- Updated this README with the Part 3 changelog and references.
+- Committed regularly to GitHub with descriptive commit messages.
+- Deployed the website to (Netlify / GitHub Pages): (add your live link here).
 
 
 
